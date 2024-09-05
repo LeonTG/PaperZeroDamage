@@ -1,0 +1,29 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: LeonTG <leontg77@gmail.com>
+Date: Fri, 6 Sep 2024 00:50:26 +0200
+Subject: [PATCH] Always allow 0 damage value
+
+cuz its stupid to not let plugins do it!
+
+diff --git a/src/main/java/net/minecraft/world/entity/LivingEntity.java b/src/main/java/net/minecraft/world/entity/LivingEntity.java
+index ccd9dff20a60f019e0c320acfb526b8bf3e5f806..466aefdc8ce2c05cc7a9212e27cd8720e5b26e40 100644
+--- a/src/main/java/net/minecraft/world/entity/LivingEntity.java
++++ b/src/main/java/net/minecraft/world/entity/LivingEntity.java
+@@ -1479,7 +1479,7 @@ public abstract class LivingEntity extends Entity implements Attackable {
+                 if (!this.actuallyHurt(source, (float) event.getFinalDamage() - this.lastHurt, event)) {
+                     return false;
+                 }
+-                if (this instanceof ServerPlayer && event.getDamage() == 0 && originalAmount == 0) return false; // Paper - revert to vanilla damage - players are not affected by damage that is 0 - skip damage if the vanilla damage is 0 and was not modified by plugins in the event.
++//                if (this instanceof ServerPlayer && event.getDamage() == 0 && originalAmount == 0) return false; // Paper - revert to vanilla damage - players are not affected by damage that is 0 - skip damage if the vanilla damage is 0 and was not modified by plugins in the event. // PaperZeroDamage - Always allow 0 damage value, cuz its stupid to not let plugins do it!
+                 // CraftBukkit end
+                 this.lastHurt = amount;
+                 flag1 = false;
+@@ -1492,7 +1492,7 @@ public abstract class LivingEntity extends Entity implements Attackable {
+                 if (!this.actuallyHurt(source, (float) event.getFinalDamage(), event)) {
+                     return false;
+                 }
+-                if (this instanceof ServerPlayer && event.getDamage() == 0 && originalAmount == 0) return false; // Paper - revert to vanilla damage - players are not affected by damage that is 0 - skip damage if the vanilla damage is 0 and was not modified by plugins in the event.
++//                if (this instanceof ServerPlayer && event.getDamage() == 0 && originalAmount == 0) return false; // Paper - revert to vanilla damage - players are not affected by damage that is 0 - skip damage if the vanilla damage is 0 and was not modified by plugins in the event. // PaperZeroDamage - Always allow 0 damage value, cuz its stupid to not let plugins do it!
+                 this.lastHurt = amount;
+                 this.invulnerableTime = this.invulnerableDuration; // CraftBukkit - restore use of maxNoDamageTicks
+                 // this.actuallyHurt(damagesource, f);
